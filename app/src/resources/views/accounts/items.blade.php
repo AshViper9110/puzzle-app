@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
 <h1>{{$title}}</h1>
+<body>
 <form method="post" action="{{url('doLogin')}}">
     @csrf
     <input name="select">
@@ -19,8 +19,7 @@
     <tr>
         <th>ID</th>
         <th>名前</th>
-        <th>レベル</th>
-        <th>経験値</th>
+        <th>種類</th>
     </tr>
     </thead>
     <tbody>
@@ -28,8 +27,7 @@
         <tr>
             <td>{{ $account['id'] }}</td>
             <td>{{ $account['name'] }}</td>
-            <td>{{ $account['level'] }}</td>
-            <td>{{ $account['exp'] }}</td>
+            <td>{{ $account['type'] }}</td>
         </tr>
     @endforeach
     </tbody>
@@ -37,5 +35,3 @@
 <a href="/accounts/home">Homeに戻る</a>
 </body>
 </html>
-
-

@@ -9,7 +9,8 @@
 <h1>ページ選択</h1>
 <ul>
     <li><a href="/accounts/users">Usersへ</a></li>
-    <li><a href="/accounts/scores">Scoresへ</a></li>
+    <li><a href="/accounts/items">Itemsへ</a></li>
+    <li><a href="/accounts/amounts">Amountsへ</a></li>
     <li><a href="/accounts/index">Indexへ</a></li>
 </ul>
 <form method="post" action="{{url('auth/logout')}}">

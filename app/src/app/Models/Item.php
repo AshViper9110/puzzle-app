@@ -9,7 +9,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $items = [
+    protected $guarded = [
         'id'
     ];
 }

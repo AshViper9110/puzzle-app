@@ -10,6 +10,6 @@ class Accounts extends Model
     use HasFactory;
 
     protected $guarded = [
-        'id',
+        'id'
     ];
 }

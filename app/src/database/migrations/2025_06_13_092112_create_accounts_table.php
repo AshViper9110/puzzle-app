@@ -14,8 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 20);
             $table->unique('name');
-            //$table->index('name');
             $table->string('password', 255);
+            $table->string('level', 255);
+            $table->string('exp', 255);
             $table->timestamps();
         });
     }

@@ -8,20 +8,26 @@
     <title>Document</title>
 </head>
 <body>
+<h1>{{ $title }}</h1>
+<form method="get" action="{{ url('amounts') }}">
+    @csrf
+    <input name="select">
+    <input name="submit" type="submit" value="検索">
+</form>
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>名前</th>
-        <th>スコア</th>
+        <th>id</th>
+        <th>ユーザー名</th>
+        <th>アイテム名</th>
     </tr>
     </thead>
     <tbody>
-    @foreach($accounts as $account)
+    @foreach($accounts as $amount)
         <tr>
-            <td>{{ $account['id'] }}</td>
-            <td>{{ $account['name'] }}</td>
-            <td>{{ $account['score'] }}</td>
+            <td>{{ $amount->id }}</td>
+            <td>{{ $amount->user->name }}</td>
+            <td>{{ $amount->item->name }}</td>
         </tr>
     @endforeach
     </tbody>

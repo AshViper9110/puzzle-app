@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accounts;
+use App\Models\Amounts;
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -23,26 +25,33 @@ class AccountController extends Controller
             ]);
     }
 
-    public function scores(Request $request)
+    public function items(Request $request)
     {
-        $title = 'アカウント一覧';
-        $data = [
-            [
-                'id' => 1,
-                'name' => 'test01',
-                'score' => '10000'
-            ],
-            [
-                'id' => 2,
-                'name' => 'test02',
-                'score' => '2345'
-            ]
-        ];
-        return view('accounts/scores',
+        $title = 'アイテム一覧';
+        $data = Item::all();
+        return view('accounts/items',
             [
                 'title' => $title,
                 'accounts' => $data
             ]);
+    }
+
+    public function amounts(Request $request)
+    {
+        $title = '所持品一覧';
+
+        $query = Amounts::with(['user', 'item']);
+
+        if ($request->has('select') && !empty($request->input('select'))) {
+            $query->where('id', $request->input('select'));
+        }
+
+        $data = $query->get();
+
+        return view('accounts.amounts', [
+            'title' => $title,
+            'accounts' => $data
+        ]);
     }
 
     public function index(Request $request)
