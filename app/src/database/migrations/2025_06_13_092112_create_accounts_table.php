@@ -15,8 +15,6 @@ return new class extends Migration {
             $table->string('name', 20);
             $table->unique('name');
             $table->string('password', 255);
-            $table->string('level', 255);
-            $table->string('exp', 255);
             $table->timestamps();
         });
     }

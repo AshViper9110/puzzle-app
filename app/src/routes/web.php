@@ -1,21 +1,42 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\StageController;
+use App\Http\Controllers\StoreController;
+use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
 //Post
-Route::post('auth/login', [AuthController::class, 'login']);
-Route::post('auth/logout', [AuthController::class, 'logout']);
+Route::prefix('auth')->controller(AuthController::class)->group(function () {
+    Route::get('index/{error_id?}', 'index')->name('auth.index');
+    Route::post('login', 'login')->name('login');
+    Route::post('logout', 'logout')->name('logout');
+});;
 
-//Get
-Route::get('auth/index/{error_id?}', [AuthController::class, 'index']);
-Route::get('/amounts', [AccountController::class, 'amounts'])->name('amounts');
 
-Route::get('accounts/home', [AccountController::class, 'home']);
-Route::get('accounts/index', [AccountController::class, 'index']);
-Route::get('accounts/users', [AccountController::class, 'users']);
-Route::get('accounts/items', [AccountController::class, 'items']);
-Route::get('accounts/amounts', [AccountController::class, 'amounts']);
+Route::prefix('accounts')->controller(AccountController::class)->middleware(AuthMiddleware::class)->group(function () {
+    Route::get('index', 'index')->name('accounts.index');
+    Route::get('home', 'home')->name('accounts.home');
+    Route::get('users', 'users')->name('accounts.users');
+    Route::get('items', 'items')->name('accounts.items');
+    Route::get('amounts', 'amounts')->name('accounts.amounts');
+});
+
+Route::prefix('store')->controller(StoreController::class)->middleware(AuthMiddleware::class)->group(function () {
+    Route::get('create', 'create')->name('store.create');
+    Route::post('set', 'set')->name('store.set');
+    Route::get('completion', 'completion')->name('store.completion');
+    Route::get('delete/{name}', 'delete')->name('store.delete');
+    Route::post('delete/{name}', 'destroy')->name('store.destroy');
+    Route::get('update/{id}', 'edit')->name('store.edit');    // 編集フォーム表示（GET）
+    Route::post('update/{id}', 'update')->name('store.update'); // 更新処理（POST）
+});
+
+Route::get('/stage/index', [StageController::class, 'index'])->name('stage.index');       // 一覧
+Route::get('/stage/index/{id}', [StageController::class, 'show'])->name('stage.show');
+Route::post('/stage/upload', [StageController::class, 'upload'])->name('stage.upload');
+Route::get('/stages/{id}', [StageController::class, 'get']);// ←追加// 詳細
+Route::get('/stages', [StageController::class, 'count']);
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accounts;
 use App\Models\Amounts;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -17,7 +18,7 @@ class AccountController extends Controller
     public function users(Request $request)
     {
         $title = 'アカウント一覧';
-        $data = Accounts::all();
+        $data = User::all();
         return view('accounts/users',
             [
                 'title' => $title,
@@ -42,21 +43,22 @@ class AccountController extends Controller
 
         $query = Amounts::with(['user', 'item']);
 
-        if ($request->has('select') && !empty($request->input('select'))) {
+        if ($request->filled('select')) {
             $query->where('id', $request->input('select'));
         }
 
-        $data = $query->get();
+        $amounts = $query->get();
 
         return view('accounts.amounts', [
             'title' => $title,
-            'accounts' => $data
+            'amounts' => $amounts
         ]);
     }
 
     public function index(Request $request)
     {
-        $accounts = Accounts::all();
+        //$accounts = Accounts::all();
+        $accounts = Accounts::simplePaginate(10);
         $count = count($accounts);
         return view('accounts/index', ['accounts' => $accounts, 'count' => $count]);
     }

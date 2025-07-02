@@ -18,14 +18,10 @@ class AccountsTableSeeder extends Seeder
         Accounts::create([
             'name' => 'Test Account',
             'password' => Hash::make('TestPassword'),
-            'level' => 10,
-            'exp' => 2500,
         ]);
         Accounts::create([
             'name' => 'AshViper',
             'password' => Hash::make('aiki9110'),
-            'level' => 15,
-            'exp' => 5500,
         ]);
 
         Item::create([
