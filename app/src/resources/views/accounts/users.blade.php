@@ -98,20 +98,20 @@
         <th>名前</th>
         <th>レベル</th>
         <th>経験値</th>
+        <th>所持金</th>
+        <th>戦闘力</th>
     </tr>
     </thead>
     <tbody>
     @foreach($accounts as $account)
-        @isset($account->detail->maney)
-            <tr>
-                <td>{{ $account['id'] }}</td>
-                <td>{{ $account['name'] }}</td>
-                <td>{{ $account['level'] }}</td>
-                <td>{{ $account['exp'] }}</td>
-                <td>{{ $account->detail->money }}</td>
-                <td>{{ $account->detail->power }}</td>
-            </tr>
-        @endisset
+        <tr>
+            <td>{{ $account['id'] }}</td>
+            <td>{{ $account['name'] }}</td>
+            <td>{{ $account['level'] }}</td>
+            <td>{{ $account['exp'] }}</td>
+            <td>{{ $account->detail->money }}</td>
+            <td>{{ $account->detail->power }}</td>
+        </tr>
     @endforeach
     </tbody>
 </table>

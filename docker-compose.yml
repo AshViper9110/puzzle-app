@@ -25,6 +25,13 @@ services:
     ports:
       - "80:80"  # ホスト側ポート番号:コンテナ内ポート番号
 
+  api:
+    build: ./api  # Dockerfileでビルド
+    volumes:
+      - ./api/src/:/var/www/                          # Laravelディレクトリ
+    ports:
+      - "8000:80"  # ホスト側ポート番号:コンテナ内ポート番号
+
   # DBサーバーコンテナ
   mysql:
     image: mysql:8.0  # DockerHubイメージ名を指定
