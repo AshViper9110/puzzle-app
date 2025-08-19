@@ -8,6 +8,10 @@ Route::get('users/{user_id}',
     [UserController::class, 'show'])
     ->name('users.show');
 
+Route::post('users/store',
+    [UserController::class, 'store'])
+    ->name('users.store');
+
 Route::get('users',
     [UserController::class, 'index'])
     ->name('users.index');
