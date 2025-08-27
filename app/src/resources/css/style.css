@@ -1,0 +1,462 @@
+/* Dark Theme CSS - 再利用可能なダークテーマスタイル */
+
+/* ベーススタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.dark-theme {
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0a0a0a 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* メインコンテナ */
+.dark-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    position: relative;
+}
+
+/* 背景エフェクト */
+.dark-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 199, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ヘッダーセクション */
+.header-section {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+.title-glow {
+    font-size: 4rem;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 0, 0.8));
+    animation: pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 0, 0.8));
+    }
+    to {
+        filter: drop-shadow(0 0 30px rgba(255, 255, 0, 1));
+    }
+}
+
+.title-underline {
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, #7877c6 50%, transparent 100%);
+    margin: 0 auto;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(120, 119, 198, 0.8);
+}
+
+/* ナビゲーションコンテナ */
+.navigation-container {
+    margin-bottom: 80px;
+}
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ナビゲーションアイテム */
+.nav-item {
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.nav-item:hover::before {
+    left: 100%;
+}
+
+.nav-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* ナビゲーションアイテムのカラーバリエーション */
+.nav-item--primary:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(66, 153, 225, 0.4);
+}
+
+.nav-item--success:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(72, 187, 120, 0.4);
+}
+
+.nav-item--warning:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(237, 137, 54, 0.4);
+}
+
+.nav-item--purple:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(159, 122, 234, 0.4);
+}
+
+.nav-item--danger:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(245, 101, 101, 0.4);
+}
+
+.nav-item--info:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(56, 178, 172, 0.4);
+}
+
+/* ナビゲーションアイコン */
+.nav-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover .nav-icon {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+}
+
+/* ナビゲーションコンテンツ */
+.nav-content {
+    flex: 1;
+}
+
+.nav-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.nav-desc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+}
+
+/* ナビゲーション矢印 */
+.nav-arrow {
+    font-size: 1.8rem;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-item:hover .nav-arrow {
+    opacity: 1;
+    transform: translateX(8px);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* ボタンセクション */
+.action-section {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-form {
+    display: inline-block;
+}
+
+/* ダークボタン */
+.dark-btn {
+    background: linear-gradient(135deg, #2d1b1b 0%, #1a1a1a 50%, #2d1b1b 100%);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+}
+
+/* ボタンカラーバリエーション */
+.dark-btn--primary {
+    border-color: rgba(66, 153, 225, 0.3);
+    color: #4299e1;
+}
+
+.dark-btn--success {
+    border-color: rgba(72, 187, 120, 0.3);
+    color: #48bb78;
+}
+
+.dark-btn--warning {
+    border-color: rgba(237, 137, 54, 0.3);
+    color: #ed8936;
+}
+
+.dark-btn--danger {
+    border-color: rgba(245, 101, 101, 0.3);
+    color: #ff6b6b;
+}
+
+.dark-btn--info {
+    border-color: rgba(56, 178, 172, 0.3);
+    color: #38b2ac;
+}
+
+/* ボタンホバー効果 */
+.dark-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    transition: all 0.4s ease;
+    transform: translate(-50%, -50%);
+}
+
+.dark-btn:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+.dark-btn:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.dark-btn--primary:hover {
+    border-color: rgba(66, 153, 225, 0.6);
+    text-shadow: 0 0 10px rgba(66, 153, 225, 0.8);
+}
+
+.dark-btn--success:hover {
+    border-color: rgba(72, 187, 120, 0.6);
+    text-shadow: 0 0 10px rgba(72, 187, 120, 0.8);
+}
+
+.dark-btn--warning:hover {
+    border-color: rgba(237, 137, 54, 0.6);
+    text-shadow: 0 0 10px rgba(237, 137, 54, 0.8);
+}
+
+.dark-btn--danger:hover {
+    border-color: rgba(245, 101, 101, 0.6);
+    text-shadow: 0 0 10px rgba(245, 101, 101, 0.8);
+}
+
+.dark-btn--info:hover {
+    border-color: rgba(56, 178, 172, 0.6);
+    text-shadow: 0 0 10px rgba(56, 178, 172, 0.8);
+}
+
+/* ボタンアイコン */
+.btn-icon {
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+}
+
+.btn-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* シャインエフェクト */
+.btn-shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+}
+
+.dark-btn:hover .btn-shine {
+    animation: shine 0.8s ease-in-out;
+}
+
+@keyframes shine {
+    0% {
+        transform: rotate(45deg) translate(-100%, -100%);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(45deg) translate(100%, 100%);
+        opacity: 0;
+    }
+}
+
+/* カードコンポーネント */
+.dark-card {
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.dark-card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* テキストスタイル */
+.dark-text-primary {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.dark-text-secondary {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-text-muted {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .dark-container {
+        padding: 40px 16px;
+    }
+
+    .main-title {
+        font-size: 2.5rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .title-glow {
+        font-size: 3rem;
+    }
+
+    .nav-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .nav-item {
+        padding: 24px 20px;
+    }
+
+    .nav-icon {
+        font-size: 2.5rem;
+    }
+
+    .nav-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .title-glow {
+        font-size: 2.2rem;
+    }
+
+    .nav-item {
+        padding: 20px 16px;
+        gap: 16px;
+    }
+
+    .nav-icon {
+        font-size: 2.2rem;
+    }
+
+    .dark-btn {
+        padding: 14px 28px;
+        font-size: 1rem;
+    }
+}
+
+/* スクロールバーのスタイリング */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}

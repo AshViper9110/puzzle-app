@@ -1,6 +1,10 @@
+{{-- resources/views/dashboard/home.blade.php --}}
 @extends('layouts.app')
 
-@section('body')
+@section('title', 'ダッシュボード')
+@section('description', '管理画面のメインダッシュボード')
+
+@section('content')
     <h1>アイテム作成</h1>
 
     <form action="{{ url('store/set') }}" method="POST">

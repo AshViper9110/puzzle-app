@@ -1,6 +1,10 @@
+{{-- resources/views/dashboard/home.blade.php --}}
 @extends('layouts.app')
 
-@section('body')
+@section('title', 'ダッシュボード')
+@section('description', '管理画面のメインダッシュボード')
+
+@section('content')
     <h1>アイテム削除</h1>
 
     @if ($done)

@@ -90,5 +90,15 @@ class StageController extends Controller
             'count' => $count
         ]);
     }
+
+    public function Createshow()
+    {
+        return view('stage.create');
+    }
+
+    public function CreateAdd()
+    {
+        return view('stage.add');
+    }
 }
 

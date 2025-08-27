@@ -38,5 +38,6 @@ Route::get('/stage/index/{id}', [StageController::class, 'show'])->name('stage.s
 Route::post('/stage/upload', [StageController::class, 'upload'])->name('stage.upload');
 Route::get('/stages/{id}', [StageController::class, 'get']);// ←追加// 詳細
 Route::get('/stages', [StageController::class, 'count']);
+Route::get('/stage/create', [StageController::class, 'Createshow'])->name('stage.create');
 
 
