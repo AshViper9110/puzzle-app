@@ -12,7 +12,7 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::get('index/{error_id?}', 'index')->name('auth.index');
     Route::post('login', 'login')->name('login');
     Route::post('logout', 'logout')->name('logout');
-});;
+});
 
 
 Route::prefix('accounts')->controller(AccountController::class)->middleware(AuthMiddleware::class)->group(function () {
@@ -20,7 +20,7 @@ Route::prefix('accounts')->controller(AccountController::class)->middleware(Auth
     Route::get('home', 'home')->name('accounts.home');
     Route::get('users', 'users')->name('accounts.users');
     Route::get('items', 'items')->name('accounts.items');
-    Route::get('amounts', 'amounts')->name('accounts.amounts');
+    Route::get('achievements', 'achievements')->name('accounts.achievements');
 });
 
 Route::prefix('store')->controller(StoreController::class)->middleware(AuthMiddleware::class)->group(function () {
@@ -36,8 +36,6 @@ Route::prefix('store')->controller(StoreController::class)->middleware(AuthMiddl
 Route::get('/stage/index', [StageController::class, 'index'])->name('stage.index');       // 一覧
 Route::get('/stage/index/{id}', [StageController::class, 'show'])->name('stage.show');
 Route::post('/stage/upload', [StageController::class, 'upload'])->name('stage.upload');
-Route::get('/stages/{id}', [StageController::class, 'get']);// ←追加// 詳細
-Route::get('/stages', [StageController::class, 'count']);
+Route::get('/stages/count', [StageController::class, 'count']);
 Route::get('/stage/create', [StageController::class, 'Createshow'])->name('stage.create');
-
-
+Route::get('/stages/{id}', [StageController::class, 'get']);// ←追加// 詳細

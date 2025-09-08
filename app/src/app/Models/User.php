@@ -19,4 +19,10 @@ class User extends Model
     {
         return $this->hasOne(UserDetail::class);
     }
+
+    public function achievements()
+    {
+        return $this->belongsToMany(\App\Models\Achievement::class, 'achievement_user')
+            ->withTimestamps();
+    }
 }

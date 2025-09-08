@@ -13,7 +13,7 @@ Accept: application/json
 }
 
 ###
-GET http://localhost:8000/api/stages/
+GET http://localhost:8000/api/stages/count
 Accept: application/json
 
 ###

@@ -55,6 +55,24 @@ class AccountController extends Controller
         ]);
     }
 
+    public function achievements(Request $request)
+    {
+        $title = 'ユーザーのアチーブメント一覧';
+
+        $query = \App\Models\User::with('achievements');
+
+        if ($request->filled('select')) {
+            $query->where('id', $request->input('select')); // ユーザーIDで絞り込み
+        }
+
+        $users = $query->get();
+
+        return view('accounts.achievements', [
+            'title' => $title,
+            'users' => $users
+        ]);
+    }
+
     public function index(Request $request)
     {
         //$accounts = Accounts::all();

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StageCell;
+use Illuminate\Http\Request;
 
-abstract class Controller
+class TestController extends Controller
 {
     public function test()
     {

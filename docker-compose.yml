@@ -27,6 +27,7 @@ services:
 
   api:
     build: ./api  # Dockerfileでビルド
+    image: puzzle-api-php
     volumes:
       - ./api/src/:/var/www/                          # Laravelディレクトリ
     ports:

@@ -32,12 +32,12 @@
                 </div>
             </a>
 
-            <a href="{{ route('accounts.amounts') }}" class="nav-item nav-item--warning" data-tooltip="金額管理">
+            <a href="{{ route('accounts.achievements') }}" class="nav-item nav-item--warning" data-tooltip="金額管理">
                 <div class="nav-icon">
                     <i class="fas fa-coins"></i>
                 </div>
                 <div class="nav-content">
-                    <div class="nav-title">Amounts</div>
+                    <div class="nav-title">Achievements</div>
                     <div class="nav-description">金額管理画面<br>売上・収益の確認</div>
                 </div>
             </a>
