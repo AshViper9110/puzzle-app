@@ -14,8 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 20);
             $table->unique('name');
-            $table->integer('level');
-            $table->integer('exp');
             $table->timestamps();
         });
     }

@@ -17,8 +17,7 @@ class UserDetailFactory extends Factory
     public function definition(): array
     {
         return [
-            'money' => $this->faker->numberBetween(1000, 100000),
-            'power' => $this->faker->numberBetween(10, 100),
+            'clear_count' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

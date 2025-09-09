@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\TestController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -39,3 +40,6 @@ Route::post('/stage/upload', [StageController::class, 'upload'])->name('stage.up
 Route::get('/stages/count', [StageController::class, 'count']);
 Route::get('/stage/create', [StageController::class, 'Createshow'])->name('stage.create');
 Route::get('/stages/{id}', [StageController::class, 'get']);// ←追加// 詳細
+
+
+

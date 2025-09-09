@@ -13,8 +13,7 @@ return new class extends Migration {
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('money');
-            $table->integer('power');
+            $table->integer('clear_count');
             $table->timestamps();
         });
     }

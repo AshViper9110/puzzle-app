@@ -25,38 +25,38 @@
         </div>
 
         <!-- 統計情報カード -->
-        <div class="nav-grid" style="margin-bottom: 40px;">
-            <div class="nav-item nav-item--primary">
-                <i class="nav-icon fas fa-users"></i>
-                <div class="nav-content">
-                    <div class="nav-title player-count">{{ count($accounts) }}</div>
-                    <div class="nav-description">総プレイヤー数</div>
-                </div>
-            </div>
-            <div class="nav-item nav-item--success">
-                <i class="nav-icon fas fa-coins"></i>
-                <div class="nav-content">
-                    <div
-                        class="nav-title total-money">{{ number_format($accounts->sum(function($account) { return $account->detail->money ?? 0; })) }}</div>
-                    <div class="nav-description">総所持金</div>
-                </div>
-            </div>
-            <div class="nav-item nav-item--warning">
-                <i class="nav-icon fas fa-star"></i>
-                <div class="nav-content">
-                    <div class="nav-title avg-level">{{ round($accounts->avg('level') ?? 0, 1) }}</div>
-                    <div class="nav-description">平均レベル</div>
-                </div>
-            </div>
-            <div class="nav-item nav-item--purple">
-                <i class="nav-icon fas fa-fist-raised"></i>
-                <div class="nav-content">
-                    <div
-                        class="nav-title max-power">{{ number_format($accounts->max(function($account) { return $account->detail->power ?? 0; })) }}</div>
-                    <div class="nav-description">最高戦闘力</div>
-                </div>
-            </div>
-        </div>
+        {{--        <div class="nav-grid" style="margin-bottom: 40px;">--}}
+        {{--            <div class="nav-item nav-item--primary">--}}
+        {{--                <i class="nav-icon fas fa-users"></i>--}}
+        {{--                <div class="nav-content">--}}
+        {{--                    <div class="nav-title player-count">{{ count($accounts) }}</div>--}}
+        {{--                    <div class="nav-description">総プレイヤー数</div>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--            <div class="nav-item nav-item--success">--}}
+        {{--                <i class="nav-icon fas fa-coins"></i>--}}
+        {{--                <div class="nav-content">--}}
+        {{--                    <div--}}
+        {{--                        class="nav-title total-money">{{ number_format($accounts->sum(function($account) { return $account->detail->money ?? 0; })) }}</div>--}}
+        {{--                    <div class="nav-description">総所持金</div>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--            <div class="nav-item nav-item--warning">--}}
+        {{--                <i class="nav-icon fas fa-star"></i>--}}
+        {{--                <div class="nav-content">--}}
+        {{--                    <div class="nav-title avg-level">{{ round($accounts->avg('level') ?? 0, 1) }}</div>--}}
+        {{--                    <div class="nav-description">平均レベル</div>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--            <div class="nav-item nav-item--purple">--}}
+        {{--                <i class="nav-icon fas fa-fist-raised"></i>--}}
+        {{--                <div class="nav-content">--}}
+        {{--                    <div--}}
+        {{--                        class="nav-title max-power">{{ number_format($accounts->max(function($account) { return $account->detail->clear_count ?? 0; })) }}</div>--}}
+        {{--                    <div class="nav-description">最高戦闘力</div>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
 
         <!-- 検索セクション -->
         <div class="search-section">
@@ -77,10 +77,7 @@
                 <tr>
                     <th><i class="fas fa-hashtag"></i> ID</th>
                     <th><i class="fas fa-user-ninja"></i> プレイヤー名</th>
-                    <th><i class="fas fa-level-up-alt"></i> レベル</th>
-                    <th><i class="fas fa-chart-line"></i> 経験値</th>
-                    <th><i class="fas fa-coins"></i> 所持金</th>
-                    <th><i class="fas fa-fist-raised"></i> 戦闘力</th>
+                    <th><i class="fas fa-level-up-alt"></i> ステージクリア数</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -96,31 +93,9 @@
                         </td>
                         <td class="level-cell">
                             <div
-                                class="level-badge level-{{ $account['level'] >= 50 ? 'high' : ($account['level'] >= 25 ? 'medium' : 'low') }}">
+                                class="level-badge level-{{ $account->detail->clear_count >= 50 ? 'high' : ($account->detail->clear_count >= 25 ? 'medium' : 'low') }}">
                                 <i class="fas fa-star"></i>
-                                <span>Lv.{{ $account['level'] }}</span>
-                            </div>
-                        </td>
-                        <td class="exp-cell">
-                            <div class="exp-container">
-                                <span class="exp-value">{{ number_format($account['exp']) }}</span>
-                                <div class="exp-bar">
-                                    <div class="exp-progress"
-                                         style="width: {{ min(($account['exp'] % 1000) / 10, 100) }}%"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="money-cell">
-                            <div class="money-display">
-                                <i class="fas fa-coins" style="color: var(--warning-color);"></i>
-                                <span>{{ number_format($account->detail->money ?? 0) }}</span>
-                            </div>
-                        </td>
-                        <td class="power-cell">
-                            <div
-                                class="power-display power-{{ $account->detail->power >= 1000 ? 'legendary' : ($account->detail->power >= 500 ? 'epic' : 'normal') }}">
-                                <i class="fas fa-fire"></i>
-                                <span>{{ number_format($account->detail->power ?? 0) }}</span>
+                                <span>クリア数 : {{ $account->detail->clear_count ?? 0 }}</span>
                             </div>
                         </td>
                     </tr>

@@ -23,31 +23,5 @@ class AccountsTableSeeder extends Seeder
             'name' => 'AshViper',
             'password' => Hash::make('aiki9110'),
         ]);
-
-        Item::create([
-            'name' => '月影',
-            'type' => '薙刀',
-        ]);
-        Item::create([
-            'name' => '刃雫',
-            'type' => '短剣',
-        ]);
-        Item::create([
-            'name' => '蒼天',
-            'type' => '長剣',
-        ]);
-
-        Amounts::create([
-            'user_id' => '1',
-            'item_id' => '2',
-        ]);
-        Amounts::create([
-            'user_id' => '1',
-            'item_id' => '1',
-        ]);
-        Amounts::create([
-            'user_id' => '2',
-            'item_id' => '3',
-        ]);
     }
 }

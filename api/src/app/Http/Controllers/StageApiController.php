@@ -7,7 +7,7 @@ use App\Models\Stage;
 use App\Models\StageCell;
 use Illuminate\Http\Request;
 
-class StageController extends Controller
+class StageApiController extends Controller
 {
     public function index(Request $request)
     {

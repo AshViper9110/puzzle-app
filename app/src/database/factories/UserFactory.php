@@ -18,8 +18,6 @@ class UserFactory extends Factory
         $scheduled_date = $this->faker->dateTimeBetween('+1day', '+1year');
         return [
             'name' => $this->faker->unique()->name(),
-            'level' => $this->faker->numberBetween(1, 100),
-            'exp' => $this->faker->randomNumber(8),
         ];
     }
 
