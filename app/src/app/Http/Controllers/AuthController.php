@@ -51,78 +51,27 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // デバッグ情報をログに記録
-        Log::info('Login attempt', [
-            'session_id' => session()->getId(),
-            'csrf_token_provided' => $request->has('_token'),
-            'csrf_token_length' => strlen($request->input('_token', '')),
-            'name' => $request->input('name'),
-            'has_password' => !empty($request->input('password')),
-            'user_agent' => $request->userAgent(),
-            'ip' => $request->ip()
+        // バリデーション
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'min:4', 'max:20'],
+            'password' => ['required', 'string', 'min:1']
         ]);
 
-        try {
-            // バリデーション
-            $validated = $request->validate([
-                'name' => ['required', 'string', 'min:4', 'max:20'],
-                'password' => ['required', 'string', 'min:1']
-            ]);
+        // ユーザー検索
+        $account = Accounts::where('name', $validated['name'])->first();
 
-            Log::info('Validation passed', ['name' => $validated['name']]);
-
-            // ユーザー検索
-            $account = Accounts::where('name', $validated['name'])->first();
-
-            if (!$account) {
-                Log::warning('Account not found', ['name' => $validated['name']]);
-                return redirect()->route('auth.index', ['error_id' => 1]);
-            }
-
-            // パスワード確認
-            if (!Hash::check($validated['password'], $account->password)) {
-                Log::warning('Invalid password', [
-                    'name' => $validated['name'],
-                    'account_id' => $account->id
-                ]);
-                return redirect()->route('auth.index', ['error_id' => 2]);
-            }
-
-            // ログイン成功
-            Session::put('login', true);
-            Session::put('user_id', $account->id);
-            Session::put('user_name', $account->name);
-
-            // セッション再生成（セキュリティ向上）
-            $request->session()->regenerate();
-
-            Log::info('Login successful', [
-                'user_id' => $account->id,
-                'user_name' => $account->name,
-                'new_session_id' => session()->getId()
-            ]);
-
-            return redirect('/accounts/home')->with('success', 'ログインしました');
-
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            Log::error('Validation failed', [
-                'errors' => $e->errors(),
-                'input' => $request->except('password')
-            ]);
-
-            return redirect()->route('auth.index')
-                ->withErrors($e->errors())
-                ->withInput($request->except('password'));
-
-        } catch (\Exception $e) {
-            Log::error('Login error', [
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            return redirect()->route('auth.index', ['error_id' => 99])
-                ->with('error', 'システムエラーが発生しました');
+        if (!$account || !Hash::check($validated['password'], $account->password)) {
+            return redirect()->route('auth.index')->withErrors(['error' => 'ユーザー名またはパスワードが間違っています。']);
         }
+
+        // セッションに保存
+        Session::put([
+            'login' => true,
+            'user_id' => $account->id,
+            'user_name' => $account->name
+        ]);
+
+        return redirect('/accounts/home')->with('success', 'ログインしました');
     }
 
     /**

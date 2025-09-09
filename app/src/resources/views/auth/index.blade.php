@@ -7,7 +7,7 @@
     <div class="container">
         <h1>ダッシュボード</h1>
 
-        @guest
+        @if(!session('login'))
             {{-- 未認証ユーザー用：ログインフォーム --}}
             <div class="login-section">
                 <h2>ログイン</h2>
@@ -28,15 +28,7 @@
                 </form>
 
                 {{-- エラーメッセージ --}}
-                @if (isset($error_id))
-                    @if ($error_id == 1)
-                        <p class="error-message">ユーザー名が存在しません</p>
-                    @elseif ($error_id == 2)
-                        <p class="error-message">パスワードが違います</p>
-                    @endif
-                @endif
-
-                @if ($errozrs->any())
+                @if ($errors->any())
                     <ul class="error-message">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -44,66 +36,62 @@
                     </ul>
                 @endif
             </div>
-
         @else
             {{-- 認証済みユーザー用：ダッシュボードコンテンツ --}}
             <div class="dashboard-header">
-                <p>ようこそ、{{ auth()->user()->name }}さん</p>
+                <p>ようこそ、{{ session('user_name') }} さん</p>
             </div>
 
             {{-- アカウント一覧（管理者のみ表示） --}}
-            @can('admin')
-                @if(isset($accounts) && $accounts->count() > 0)
-                    <div class="accounts-section">
-                        <h2>アカウント一覧</h2>
-                        <div class="table-container">
-                            <table class="data-table">
-                                <thead>
+            @if(session('user_name') === 'admin' && isset($accounts) && $accounts->count() > 0)
+                <div class="accounts-section">
+                    <h2>アカウント一覧</h2>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>名前</th>
+                                <th>作成日</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($accounts as $account)
                                 <tr>
-                                    <th>ID</th>
-                                    <th>名前</th>
-                                    <th>作成日</th>
-                                    <th>操作</th>
+                                    <td>{{ $account->id }}</td>
+                                    <td>{{ $account->name }}</td>
+                                    <td>{{ $account->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        <a href="{{ route('accounts.edit', $account->id) }}"
+                                           class="btn-small">編集</a>
+                                        <form method="POST"
+                                              action="{{ route('accounts.reset-password', $account->id) }}"
+                                              style="display: inline;">
+                                            @csrf
+                                            <button type="submit" class="btn-small btn-warning"
+                                                    onclick="return confirm('パスワードをリセットしますか？')">
+                                                パスワードリセット
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($accounts as $account)
-                                    <tr>
-                                        <td>{{ $account->id }}</td>
-                                        <td>{{ $account->name }}</td>
-                                        <td>{{ $account->created_at->format('Y-m-d') }}</td>
-                                        <td>
-                                            <a href="{{ route('accounts.edit', $account->id) }}"
-                                               class="btn-small">編集</a>
-                                            {{-- パスワードリセットボタンなど --}}
-                                            <form method="POST"
-                                                  action="{{ route('accounts.reset-password', $account->id) }}"
-                                                  style="display: inline;">
-                                                @csrf
-                                                <button type="submit" class="btn-small btn-warning"
-                                                        onclick="return confirm('パスワードをリセットしますか？')">
-                                                    パスワードリセット
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                @endif
-            @endcan
+                </div>
+            @endif
 
             {{-- ダッシュボードメニュー --}}
             <div class="dashboard-menu">
                 <h2>メニュー</h2>
                 <ul>
                     <li><a href="{{ route('profile.edit') }}">プロフィール編集</a></li>
-                    @can('admin')
+                    @if(session('user_name') === 'admin')
                         <li><a href="{{ route('admin.users') }}">ユーザー管理</a></li>
                         <li><a href="{{ route('admin.settings') }}">システム設定</a></li>
-                    @endcan
+                    @endif
                 </ul>
             </div>
 
@@ -114,10 +102,8 @@
                     <button type="submit" class="btn-secondary">ログアウト</button>
                 </form>
             </div>
-        @endguest
-
+        @endif
     </div>
-
     <style>
         .form-group {
             margin-bottom: 15px;

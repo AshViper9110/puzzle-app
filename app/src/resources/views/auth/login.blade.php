@@ -65,17 +65,6 @@
                 </div>
             @endif
 
-            {{-- バリデーションエラー --}}
-            @if ($errors->any())
-                <div class="error-container">
-                    <ul class="error-list">
-                        @foreach ($errors->all() as $error)
-                            <li class="error-message">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             {{-- セッションメッセージ --}}
             @if (session('error'))
                 <div class="error-container">
